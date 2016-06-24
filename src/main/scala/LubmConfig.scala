@@ -11,7 +11,7 @@ import org.apache.spark.sql.functions._
 class LubmConfig(sc:SparkContext) {
 
   val file: String = "/Users/xiangnanren/" +
-    "IDEAWorkspace/lubm-generator/data/lubm1_test"
+    "IDEAWorkspace/lubm-generator/data/lubm1_encoded.txt"
   val sameAsUpBound: Int = 8
   val sameAsLowBound: Int = 4
   val transitUpBound: Int = 10
@@ -35,11 +35,16 @@ class LubmConfig(sc:SparkContext) {
   }
 
   def getMaxIndividual(df: DataFrame): Long  = {
-    val maxIndividu = df.where(df("p") !== "0")
+    val maxIndividu1 = df.where(df("p") !== "0")
       .select(df("s").cast(LongType), df("o").cast(LongType))
       .agg(max("s"),max("o")).first
 
-    maxIndividu.getLong(0) max maxIndividu.getLong(1)
+    val maxIndividu2 =  df.where(df("p") <=> "0")
+      .select(df("s").cast(LongType)).agg(max("s")).first
+
+
+    maxIndividu1.getLong(0) max maxIndividu1.getLong(1) max maxIndividu2.getLong(0)
+
     }
 }
 

@@ -1,5 +1,9 @@
 import java.io.{File, PrintWriter}
 
+import org.apache.spark.sql.Row
+
+import scala.collection.mutable.ArrayBuffer
+
 /**
   * Created by xiangnanren on 24/06/16.
   */
@@ -19,9 +23,7 @@ class LubmFactory(lubmConfig:LubmConfig) {
         + row(0) + ","
         + "1" + ","
         + counter + ")\n")})
-
     writer.close()
-
   }
 
 
@@ -51,16 +53,35 @@ class LubmFactory(lubmConfig:LubmConfig) {
           counter = tempCounter
         }
       })
-
     writer.close()
-
   }
-
 
   def createTransitive(transitive: LubmTransitive) = {
+    val df1 = lubmConfig.df
+    val writer = new PrintWriter(new File(transitive.transitiveFile))
+    var counter: Long = 0L
 
+    var i,j = 0
+
+    val arrayRow = df1.where(df1("p") <=> "0")
+      .where(df1("o") <=> "973078528")
+      .select("s").collect
+
+    arrayRow.foreach(println(_))
+
+    while(i < arrayRow.length ){
+      while((j < transitBound) && (i+j+1 < arrayRow.length)){
+        writer.write("("
+          + arrayRow(i+j)(0) + ","
+          + "transitivePredicate" + ","
+          + arrayRow(i+j+1)(0) + ")\n")
+        j += 1
+      }
+      j = 0
+      i+=1
+    }
+    writer.close()
   }
-
 
   def sameAsBound: Int = {
         val r = scala.util.Random

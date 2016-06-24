@@ -10,10 +10,14 @@ object EncodeLauncher extends App {
 
   val lubmConfig = LubmConfig(sc)
 
-  val sameAs = new LubmSameAs("/Users/xiangnanren/IDEAWorkspace/lubm-generator/data/lubm1_SameAs")
+  val sameAs = new LubmSameAs("/Users/xiangnanren/IDEAWorkspace/" +
+    "lubm-generator/data/lubm1_SameAs")
+  val transitive = new LubmTransitive("/Users/xiangnanren/IDEAWorkspace/" +
+    "lubm-generator/data/lubm1_Transitive")
 
-//  new LubmFactory(lubmConfig).createSameAsType1(sameAs)
-  new LubmFactory(lubmConfig).createSameAsType2(sameAs)
-
+  val lubm = new LubmFactory(lubmConfig)
+  lubm.createSameAsType1(sameAs)
+  lubm.createSameAsType2(sameAs)
+  lubm.createTransitive(transitive)
 
 }
