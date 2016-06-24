@@ -35,7 +35,7 @@ class LubmConfig(sc:SparkContext) {
   }
 
   def getMaxIndividual(df: DataFrame): Long  = {
-    val maxIndividu = df.where(df("p") <=> "0")
+    val maxIndividu = df.where(df("p") !== "0")
       .select(df("s").cast(LongType), df("o").cast(LongType))
       .agg(max("s"),max("o")).first
 
