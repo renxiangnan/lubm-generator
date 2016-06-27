@@ -45,7 +45,6 @@ class LubmConfig(sc:SparkContext) {
     }
 }
 
-
 object LubmConfig {
   def apply(sc: SparkContext): LubmConfig = new LubmConfig(sc)
 }
