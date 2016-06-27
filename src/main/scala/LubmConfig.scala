@@ -18,8 +18,7 @@ class LubmConfig(sc:SparkContext) {
   val transitLowBound: Int = 5
   val df: DataFrame = Lubm2DF(sc)
   val maxIndividual: Long = getMaxIndividual(df)
-
-
+  
   def Lubm2DF(sc: SparkContext): DataFrame = {
     val sqlContext = new SQLContext(sc)
     val schemaString = "s p o"
