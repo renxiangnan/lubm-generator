@@ -111,11 +111,6 @@ class LubmFactory(lubmConfig:LubmConfig) {
     writer.close()
   }
 
-
-
-
-
-
   def sameAsBound: Int = {
         val r = scala.util.Random
         lubmConfig.sameAsLowBound + r.nextInt(
