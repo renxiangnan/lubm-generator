@@ -23,7 +23,6 @@ class LubmFactory(lubmConfig:LubmConfig) {
     writer.close()
   }
 
-
   def createSameAsType2(sameAs: LubmSameAs) = {
     val df1 = lubmConfig.df
     val writer = new PrintWriter(new File(sameAs.sameAsFile))
