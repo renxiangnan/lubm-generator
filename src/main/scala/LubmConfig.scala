@@ -41,10 +41,8 @@ class LubmConfig(sc:SparkContext) {
 
     val maxIndividu2 =  df.where(df("p") <=> "0")
       .select(df("s").cast(LongType)).agg(max("s")).first
-
-
+      
     maxIndividu1.getLong(0) max maxIndividu1.getLong(1) max maxIndividu2.getLong(0)
-
     }
 }
 
